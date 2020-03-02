@@ -56,7 +56,7 @@ BEGIN
 END;
 /
 CREATE OR REPLACE TRIGGER t_ustaw_id_pracownik BEFORE
-    INSERT ON pracownik2
+    INSERT ON pracownik
     FOR EACH ROW
 BEGIN
     :new.id_pracownika := sek_pracownik.nextval;
@@ -66,7 +66,7 @@ END;
 SELECT
     *
 FROM
-    pracownik2;
+    pracownik;
 
 SELECT
     *
@@ -83,6 +83,6 @@ EXECUTE zad4oraz5.reshape_data();
 zad4oraz5.avg_salary('Education Analyst');
 
 SELECT * FROM temp1;
-SELECT * from pracownik2;
+SELECT * from pracownik;
 
 SELECT * FROM V$SESSION WHERE STATUS = 'ACTIVE';

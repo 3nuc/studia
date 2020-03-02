@@ -24,7 +24,7 @@ CREATE OR REPLACE PACKAGE BODY zad4oraz5 AS
             FROM
                 temp1;
 
-        INSERT INTO pracownik2 (
+        INSERT INTO pracownik (
             surname,
             name,
             birth,
@@ -61,12 +61,12 @@ CREATE OR REPLACE PACKAGE BODY zad4oraz5 AS
         FROM
             (
                 SELECT
-                    AVG(pracownik2.salary) AS avgsal,
-                    pracownik2.id_stanowiska AS idst
+                    AVG(pracownik.salary) AS avgsal,
+                    pracownik.id_stanowiska AS idst
                 FROM
-                    pracownik2
+                    pracownik
                 GROUP BY
-                    pracownik2.id_stanowiska
+                    pracownik.id_stanowiska
             )
             INNER JOIN stanowisko ON stanowisko.id_stanowiska = idst
         WHERE
