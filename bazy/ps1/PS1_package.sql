@@ -12,7 +12,19 @@ CREATE OR REPLACE PACKAGE BODY zad4oraz5 AS
 
     PROCEDURE reshape_data IS
     BEGIN
-        INSERT INTO pracownik (
+        INSERT INTO specjalnosc ( nazwa )
+            SELECT DISTINCT
+                speciality AS name
+            FROM
+                temp1;
+
+        INSERT INTO stanowisko ( nazwa )
+            SELECT DISTINCT
+                position AS nazwa
+            FROM
+                temp1;
+
+        INSERT INTO pracownik2 (
             surname,
             name,
             birth,
@@ -40,7 +52,8 @@ CREATE OR REPLACE PACKAGE BODY zad4oraz5 AS
 
     FUNCTION avg_salary (
         nazwa_stanowiska VARCHAR2
-    ) RETURN NUMBER IS srednia_pensja NUMBER;
+    ) RETURN NUMBER IS
+        srednia_pensja NUMBER;
     BEGIN
         SELECT
             avgsal
@@ -48,20 +61,26 @@ CREATE OR REPLACE PACKAGE BODY zad4oraz5 AS
         FROM
             (
                 SELECT
-                    AVG(pracownik.salary) as avgsal,
-                    pracownik.id_stanowiska as idst
+                    AVG(pracownik2.salary) AS avgsal,
+                    pracownik2.id_stanowiska AS idst
                 FROM
-                    pracownik
+                    pracownik2
                 GROUP BY
-                    pracownik.id_stanowiska
+                    pracownik2.id_stanowiska
             )
             INNER JOIN stanowisko ON stanowisko.id_stanowiska = idst
         WHERE
             stanowisko.nazwa LIKE nazwa_stanowiska;
-        RETURN(srednia_pensja);
+
+        return(srednia_pensja);
     END;
 
 END zad4oraz5;
+/
 
-select zad4oraz5.avg_salary ('Education Analyst') from dual;
-EXECUTE zad4oraz5.RESHAPE_DATA();
+SELECT
+    zad4oraz5.avg_salary('Education Analyst')
+FROM
+    dual;
+
+EXECUTE zad4oraz5.reshape_data();

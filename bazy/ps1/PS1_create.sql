@@ -1,57 +1,88 @@
-DROP TABLE PRACOWNIK;
-DROP TABLE STANOWISKO;
-DROP TABLE SPECJALNOSC;
+DROP TABLE pracownik2;
 
-CREATE TABLE STANOWISKO (
-    ID_STANOWISKA NUMBER PRIMARY KEY,
-    NAZWA VARCHAR(50)
+DROP TABLE stanowisko;
+
+DROP TABLE specjalnosc;
+
+DROP SEQUENCE SEK_STANOWISKO;
+
+DROP SEQUENCE SEK_SPECJALNOSC;
+
+DROP SEQUENCE SEK_PRACOWNIK;
+
+CREATE TABLE stanowisko (
+    id_stanowiska   NUMBER PRIMARY KEY,
+    nazwa           VARCHAR(50)
 );
 
-CREATE TABLE SPECJALNOSC (
-    ID_SPECJALNOSCI NUMBER PRIMARY KEY,
-    NAZWA VARCHAR(50)
+CREATE TABLE specjalnosc (
+    id_specjalnosci   NUMBER PRIMARY KEY,
+    nazwa             VARCHAR(50)
 );
 
-CREATE TABLE PRACOWNIK (
-ID_PRACOWNIKA NUMBER PRIMARY KEY,
-SURNAME VARCHAR(50),
-NAME VARCHAR(50),
-BIRTH DATE NOT NULL,
-HIRE DATE NOT NULL,
-EMAIL VARCHAR(50),
-SALARY NUMBER NOT NULL,
-ID_STANOWISKA REFERENCES STANOWISKO(ID_STANOWISKA),
-ID_SPECJALNOSCI REFERENCES SPECJALNOSC(ID_SPECJALNOSCI)
+CREATE TABLE pracownik (
+    id_pracownika   NUMBER PRIMARY KEY,
+    surname         VARCHAR(50),
+    name            VARCHAR(50),
+    birth           DATE NOT NULL,
+    hire            DATE NOT NULL,
+    email           VARCHAR(50),
+    salary          NUMBER NOT NULL,
+    id_stanowiska
+        REFERENCES stanowisko ( id_stanowiska ),
+    id_specjalnosci
+        REFERENCES specjalnosc ( id_specjalnosci )
 );
 
-CREATE SEQUENCE SEK_STANOWISKO;
-CREATE SEQUENCE SEK_SPECJALNOSC;
-CREATE SEQUENCE SEK_PRACOWNIK;
+CREATE SEQUENCE sek_stanowisko;
+/
+CREATE SEQUENCE sek_specjalnosc;
+/
+CREATE SEQUENCE sek_pracownik;
+/
 
-CREATE OR REPLACE TRIGGER T_USTAW_ID_STANOWISKO
-BEFORE INSERT ON STANOWISKO
-FOR EACH ROW
+CREATE OR REPLACE TRIGGER t_ustaw_id_stanowisko BEFORE
+    INSERT ON stanowisko
+    FOR EACH ROW
 BEGIN
-    :NEW.ID_STANOWISKA := SEK_STANOWISKO.NEXTVAL;
+    :new.id_stanowiska := sek_stanowisko.nextval;
 END;
-
-CREATE OR REPLACE TRIGGER T_USTAW_ID_SPECJALNOSC
-BEFORE INSERT ON SPECJALNOSC
-FOR EACH ROW
+/
+CREATE OR REPLACE TRIGGER t_ustaw_id_specjalnosc BEFORE
+    INSERT ON specjalnosc
+    FOR EACH ROW
 BEGIN
-    :NEW.ID_SPECJALNOSCI := SEK_SPECJALNOSC.NEXTVAL;
+    :new.id_specjalnosci := sek_specjalnosc.nextval;
 END;
-CREATE OR REPLACE TRIGGER T_USTAW_ID_PRACOWNIK
-BEFORE INSERT ON PRACOWNIK
-FOR EACH ROW
+/
+CREATE OR REPLACE TRIGGER t_ustaw_id_pracownik BEFORE
+    INSERT ON pracownik2
+    FOR EACH ROW
 BEGIN
-    :NEW.ID_PRACOWNIKA := SEK_PRACOWNIK.NEXTVAL;
+    :new.id_pracownika := sek_pracownik.nextval;
 END;
+/
 
-SELECT * FROM Pracownik;
-SELECT * FROM Stanowisko;
-SELECT * FROM Specjalnosc;
+SELECT
+    *
+FROM
+    pracownik2;
 
-EXECUTE zad4oraz5.RESHAPE_DATA();
+SELECT
+    *
+FROM
+    stanowisko;
+
+SELECT
+    *
+FROM
+    specjalnosc;
+
+EXECUTE zad4oraz5.reshape_data();
 
 zad4oraz5.avg_salary('Education Analyst');
+
+SELECT * FROM temp1;
+SELECT * from pracownik2;
+
+SELECT * FROM V$SESSION WHERE STATUS = 'ACTIVE';

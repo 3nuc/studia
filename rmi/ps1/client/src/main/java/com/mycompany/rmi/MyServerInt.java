@@ -6,6 +6,6 @@ import java.rmi.RemoteException;
 
 public interface MyServerInt extends Remote{
 
-String getDescription(String text) throws RemoteException;
-
+    String getDescription(String text) throws RemoteException;
+    float calculate(float a, float b, String operand) throws RemoteException;
 }
