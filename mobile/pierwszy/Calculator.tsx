@@ -1,7 +1,8 @@
-import React from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TextInput, Button, Platform } from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-export function Calculator({route, navigation}) {
+export function Calculator({route, navigation}) { 
   const [distanceTravelled, setDistanceTravelled] = React.useState("");
   const [fuelBurned, setFuelBurned] = React.useState("");
   const [fuelPrice, setFuelPrice] = React.useState("");
@@ -12,11 +13,51 @@ export function Calculator({route, navigation}) {
     }
     return value;
   };
+
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    console.log(event);
+    
+    if (event.type === 'set') {
+      setShow(false);
+    };
+    
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+  };
+
+  const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+
   const fuelPerHundredKm = validatedCalculation(Number(fuelBurned) / Number(distanceTravelled) * 100); 
   const currencyPerHundredKm = validatedCalculation(fuelPerHundredKm*Number(fuelPrice))
   return (
     <View style={styles.container}>
-      <Text>Pomóżcie mi prosze juz nie daje rady</Text>
+      <Text>Kalkulator Mobilne PS1</Text>
+      <Button onPress={showDatepicker} title="Show date picker!" />
+      <Button onPress={showTimepicker} title="Show time picker!" />
+      {show && <DateTimePicker
+        testID="dateTimePicker"
+        timeZoneOffsetInMinutes={0}
+        value={date}
+        onChange={onChange}
+        mode={mode as any}
+        is24Hour={true}
+        display="default"
+      />}
       <TextInput
         onChangeText={text => setDistanceTravelled(text)}
         value={distanceTravelled}
@@ -40,7 +81,7 @@ export function Calculator({route, navigation}) {
       />
       <Button
         title="Oblicz"
-        onPress={() => navigation.push('Results', { fuelPerHundredKm, currencyPerHundredKm })}
+        onPress={() => navigation.push('Results', { fuelPerHundredKm, currencyPerHundredKm, date })}
       />
     </View>
   );

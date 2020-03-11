@@ -4,9 +4,12 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 export function Results({route, navigation}) {
 
-  const { fuelPerHundredKm, currencyPerHundredKm } = route.params;
+  const { fuelPerHundredKm, currencyPerHundredKm, date } = route.params;
   return (
     <View style={styles.container}>
+      <Text style={styles.result}>
+        {date.toISOString()}
+      </Text>
       <Text style={styles.result}>
         Wydajność:
       </Text>
