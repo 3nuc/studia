@@ -2,10 +2,8 @@ import React from "react";
 import { StyleSheet, Text, View, TextInput } from "react-native";
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import { Add } from "./Add";
+import { Calculator } from "./Calculator";
 import { Results } from "./Results";
-import { List } from './List';
-import { Details } from './Details';
 
 
 const Stack = createStackNavigator()
@@ -14,16 +12,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="List" 
-          component={List}
+          name="Calculator" 
+          component={Calculator}
         />
         <Stack.Screen
-          name="Add" 
-          component={Add}
-        />
-        <Stack.Screen
-          name="Details" 
-          component={Details}
+          name="Results" 
+          component={Results}
         />
       </Stack.Navigator>
     </NavigationContainer>
