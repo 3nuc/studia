@@ -2,6 +2,7 @@ import { SqliteService, GetCalculationResult } from './db';
 import { StyleSheet, Text, View, TextInput, Button, Platform, Image, TouchableOpacity, Modal } from "react-native";
 import React from 'react';
 import { BaseRouter } from '@react-navigation/native';
+import { firebaseService } from './firebase';
 export class List extends React.Component {
   constructor(props) {
     super(props);
@@ -13,10 +14,12 @@ export class List extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ db: new SqliteService() }, () => {
-      this.state.db.getCalculations().then(data => this.setState({list: data}));
+    this.setState({ db: firebaseService}, () => {
+      this.state.db.getCars().then(data => { this.setState({ list: Object.values(data) }); console.log(data); console.log(Object.values(data));
+      })
+      console.log(this.state.list);
+      
     })
-    
   }
 
   render() {
@@ -26,10 +29,10 @@ export class List extends React.Component {
       <View>
         <Image source={{ uri: image_url }} style={style.tinyLogo}></Image>
         <Text>Entry {rowid}</Text>
-        <Text>Nazwa samochodu:{car_name}</Text>
-        <Text>Data dodania:{creation_date}</Text>
-        <Text>Wydajnosc: {fuel_efficiency}l/100km</Text>
-        <Text>Rodzaj paliwa:{fuel_type}</Text>
+        <Text>{car_name}</Text>
+        <Text>{creation_date}</Text>
+        <Text>{fuel_efficiency}</Text>
+        <Text>{fuel_type}</Text>
         <TouchableOpacity style={style.button}>
           <Button title="Usuń" onPress={() => {
             this.setState({modalVisible: rowid})

@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "341261303541",
+    "firebase_url": "https://mobilki-d7662.firebaseio.com",
+    "project_id": "mobilki-d7662",
+    "storage_bucket": "mobilki-d7662.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341261303541:android:6d69c174375a1285bdcfbc",
+        "android_client_info": {
+          "package_name": "com.arturo.whatever"
+        }
+      },
+      "oautht
+      client": [
+        {
+          "client_id": "341261303541-m5skfvh853hncrk76fq75anvpkvb3ard.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbYCckOQNnO427oIAjeUzEAnXQIZ0J7YQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "341261303541-m5skfvh853hncrk76fq75anvpkvb3ard.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
