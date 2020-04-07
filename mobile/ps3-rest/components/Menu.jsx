@@ -32,13 +32,13 @@ export const Menu = ({ navigation }) => {
       <Button
         title="Klasyfikacja generalna"
         onPress={() => {
-          navigation.push("Classification");
+          navigation.push("Classification", { season, round });
         }}
       />
       <Button
         title="Kierowcy"
         onPress={() => {
-          navigation.push("Drivers");
+          navigation.push("Drivers", { season, round });
         }}
       />
     </View>

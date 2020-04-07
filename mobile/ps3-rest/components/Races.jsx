@@ -3,11 +3,13 @@ import { View, TextInput, FlatList, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
 
-export const Races = ({ navigation, season, round }) => {
+export const Races = ({ navigation, route }) => {
   const [search, setSearch] = useState("");
   const [racesFiltered, setRacesFiltered] = useState("");
   const [races, setRaces] = useState([]);
+  const { season, round } = route.params;
   useEffect(() => {
+    console.log(season);
     ErgastAPI.getRaces(season, round).then(data => {
       setRaces(data);
       setSearch("");
