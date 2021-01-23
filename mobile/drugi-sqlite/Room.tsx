@@ -13,6 +13,7 @@ import {
   TextInputChangeEventData,
   ImageBackground,
   Picker,
+  TouchableOpacity,
 } from "react-native";
 import { Person } from "./types";
 import { getFavorites, updateRoom } from "./sqlite";
@@ -97,16 +98,28 @@ export const Room = ({ navigation, route }) => {
           />
           <View>
             {roomData.room.comments?.map((x) => (
-              <Text
-                style={{
-                  padding: 10,
-                  borderWidth: 1,
-                  borderColor: "whitesmoke",
-                  marginTop: 10,
+              <TouchableOpacity
+                onLongPress={async () => {
+                  await updateRoom(
+                    {
+                      ...roomData.room,
+                      comments: roomData.room.comments.filter((_x) => x === _x),
+                    },
+                    roomData.rowid
+                  );
                 }}
               >
-                {x}
-              </Text>
+                <Text
+                  style={{
+                    padding: 10,
+                    borderWidth: 1,
+                    borderColor: "whitesmoke",
+                    marginTop: 10,
+                  }}
+                >
+                  {x}
+                </Text>
+              </TouchableOpacity>
             ))}
           </View>
         </View>

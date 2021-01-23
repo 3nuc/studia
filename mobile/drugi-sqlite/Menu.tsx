@@ -41,21 +41,21 @@ export default ({ navigation: { push } }) => {
         </Text>
         <View style={{ ...styles.button }}>
           <Button
-            title="Znajdź fachowca"
+            title="Fachowcy (REST API)"
             onPress={() => push("People (REST API)")}
             color="orange"
           />
         </View>
         <View style={{ ...styles.button }}>
           <Button
-            title="Twoje remontowane pokoje"
+            title="Twoje remontowane pokoje (SQLite)"
             onPress={() => push("Rooms")}
             color="brown"
           />
         </View>
         <View style={{ ...styles.button }}>
           <Button
-            title="Poziomica"
+            title="Poziomica (Akcelerometr)"
             onPress={() => push("Poziomica (Akcelerometr)")}
             color="crimson"
           />
